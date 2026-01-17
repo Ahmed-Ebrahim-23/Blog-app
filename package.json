@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.ts"
+    "dev": "nodemon --exec tsx src/app.ts"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "mongoose": "^9.1.4",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "tsx": "^4.21.0"
   }
 }

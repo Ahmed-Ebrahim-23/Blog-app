@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 
-import dbConnection from './config/db.ts';
+import dbConnection from './config/db.js';
 
 dotenv.config();
 

@@ -1,5 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
-import type { IUser } from './user.model.ts';
+import type { IUser } from './user.model.js';
 
 export interface IPost extends Document {
     title: string;

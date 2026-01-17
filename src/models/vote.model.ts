@@ -1,8 +1,8 @@
 import { Document, model, Schema } from "mongoose";
 
-import type { IPost } from "./post.model.ts";
-import type { IUser } from "./user.model.ts";
-import type { IComment } from "./comment.model.ts";
+import type { IPost } from "./post.model.js";
+import type { IUser } from "./user.model.js";
+import type { IComment } from "./comment.model.js";
 
 export interface IVote extends Document {
     voter: IUser;
