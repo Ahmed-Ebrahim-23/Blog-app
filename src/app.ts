@@ -4,6 +4,8 @@ import morgan from 'morgan';
 
 import dbConnection from './config/db.js';
 
+import { globalErrorHandler } from './middlewares/errorHandler.js';
+
 dotenv.config();
 
 dbConnection();
@@ -13,6 +15,8 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(morgan('dev'));
+
+app.use(globalErrorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
