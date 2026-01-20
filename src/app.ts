@@ -6,6 +6,8 @@ import dbConnection from './config/db.js';
 
 import { globalErrorHandler } from './middlewares/errorHandler.js';
 
+import authRouter from './routers/auth.route.js';
+
 dotenv.config();
 
 dbConnection();
@@ -15,6 +17,8 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(morgan('dev'));
+
+app.use('/auth', authRouter);
 
 app.use(globalErrorHandler);
 
