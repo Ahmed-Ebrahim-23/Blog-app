@@ -4,27 +4,33 @@ import JSend from '../utils/jsend.js';
 
 export const globalErrorHandler = (err: Error | AppError, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 500;
-    let payload: object = {};
+    let payload: Record<string, any> = {};
     let message: string = 'An unexpected error occurred';
 
     if (err instanceof AppError) {
         statusCode = err.statusCode;
-        payload = err.data;
+        if (err.data) {
+            payload = typeof err.data === 'object' ? err.data : { details: err.data };
+        }
         message = err.message;
     }
-
+    else 
+        message = process.env.NODE_ENV === 'development' ? err.message : 'An unexpected error occurred';
+    
+    
     if(statusCode >= 400 && statusCode < 500){
-        return JSend.fail(res, payload, statusCode);
+        const responseData = {
+            message,
+            ...(Object.keys(payload).length > 0 && payload)
+        };
+        return JSend.fail(res, responseData, statusCode);
     }
 
-    console.error('Unexpected Error:', err);
-    if (process.env.NODE_ENV === 'development') {
-        payload = { 
-            name: err.name,
-            message: err.message,
-            stack: err.stack 
-        };
-    }
-    return JSend.error(res, message, statusCode, payload);
+    console.error('Unexpected Error:', {
+        message: err.message,
+        stack: err.stack,
+        timestamp: new Date().toISOString()
+    });
+    return JSend.error(res, message, statusCode);
     
 };
